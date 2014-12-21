@@ -13,14 +13,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends ActionBarActivity {
 
     GoogleMap googleMap;
-    GPSTracker gps;
-    Marker marker;
+
 
 
     LocationManager locationManager;
@@ -68,6 +66,7 @@ public class MainActivity extends ActionBarActivity {
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(
                         R.id.mapView)).getMap();
                 googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                googleMap.setMyLocationEnabled(true);
 
                 /**
                  * If the map is still null after attempted initialisation,
@@ -123,12 +122,11 @@ public class MainActivity extends ActionBarActivity {
         {
             if (null != googleMap) {
 
-                if(marker==null) {
 
-                    marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getAltitude()))
+                  googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getAltitude()))
                             .title("Marker")
                             .draggable(true));
-                }
+
 
 
 
