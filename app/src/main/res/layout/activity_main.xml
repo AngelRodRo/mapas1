@@ -6,6 +6,27 @@
         android:id="@+id/mapView"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="300dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir marcador"
+        android:id="@+id/btnActualizar"
+        android:layout_marginTop="96dp"
+        android:layout_below="@+id/mapView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eliminar marcador"
+        android:id="@+id/btnEliminar"
+        android:layout_below="@+id/btnActualizar"
+        android:layout_alignRight="@+id/btnActualizar"
+        android:layout_alignEnd="@+id/btnActualizar"
+        android:layout_alignLeft="@+id/btnActualizar"
+        android:layout_alignStart="@+id/btnActualizar" />
 
 </RelativeLayout>

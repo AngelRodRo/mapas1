@@ -8,17 +8,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends ActionBarActivity {
 
     GoogleMap googleMap;
-
+    Button btnActualizar;
+    Button btnEliminar;
+    Marker marker;
+    int i=0;
 
 
     LocationManager locationManager;
@@ -30,7 +36,24 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         createMapView();
-        actualizarPosicion();
+
+        btnActualizar = (Button) findViewById(R.id.btnActualizar);
+        btnEliminar = (Button) findViewById(R.id.btnEliminar);
+
+        btnActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualizarPosicion();
+            }
+        });
+
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                marker.remove();
+            }
+        });
+
     }
 
 
@@ -65,8 +88,8 @@ public class MainActivity extends ActionBarActivity {
             if(null == googleMap){
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(
                         R.id.mapView)).getMap();
-                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                googleMap.setMyLocationEnabled(true);
+                googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+
 
                 /**
                  * If the map is still null after attempted initialisation,
@@ -122,14 +145,11 @@ public class MainActivity extends ActionBarActivity {
         {
             if (null != googleMap) {
 
-
-                  googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getAltitude()))
-                            .title("Marker")
+                  marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(Math.random()*90, Math.random()*90))
+                            .title("Marker " + i)
                             .draggable(true));
 
-
-
-
+                  i++;
             }
         }
     }
