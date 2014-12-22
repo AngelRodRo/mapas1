@@ -24,6 +24,9 @@ public class MainActivity extends ActionBarActivity {
     Button btnActualizar;
     Button btnEliminar;
     Marker marker;
+    double longitude;
+    double latitude;
+
     int i=0;
 
 
@@ -43,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AddMarker();
                 actualizarPosicion();
             }
         });
@@ -50,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                marker.remove();
+                RemoveMarker();
             }
         });
 
@@ -88,7 +92,7 @@ public class MainActivity extends ActionBarActivity {
             if(null == googleMap){
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(
                         R.id.mapView)).getMap();
-                googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
 
                 /**
@@ -144,13 +148,20 @@ public class MainActivity extends ActionBarActivity {
         if(location!=null)
         {
             if (null != googleMap) {
-
-                  marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(Math.random()*90, Math.random()*90))
-                            .title("Marker " + i)
-                            .draggable(true));
-
-                  i++;
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
             }
         }
     }
+
+    public void AddMarker(){
+        marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+                .title("Marker " + i)
+                .draggable(true));
+        i++;
+    }
+
+    public void RemoveMarker(){
+        marker.remove();
+   }
 }
